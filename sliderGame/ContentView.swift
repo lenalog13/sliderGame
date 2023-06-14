@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var value = 0.0
+    @State var value = Double.random(in: 0...100)
     
     var body: some View {
         VStack(spacing: 20) {
-            Text("Подвинь слайдер, как можно ближе к:")
+            Text("Подвинь слайдер, как можно ближе к: \(value)")
             
             HStack {
                 Text("0")
-                Slider(value: $value)
+                CustomSliderView(value: $value, alpha: 50)
                 Text("100")
             }
             Button("Проверь меня!") {
@@ -28,6 +28,8 @@ struct ContentView: View {
         }
         .padding()
     }
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
