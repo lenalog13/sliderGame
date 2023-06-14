@@ -20,15 +20,21 @@ struct CustomSliderView: UIViewRepresentable {
         slider.maximumValue = 100
         
         slider.minimumTrackTintColor = .blue
-        slider.thumbTintColor = .red
-            .withAlphaComponent(CGFloat(alpha) / 100)
+
+        slider.addTarget(
+            context.coordinator,
+            action: #selector(Coordinator.valueChanged),
+            for: .valueChanged
+        )
         
         return slider
     }
     
     
     func updateUIView(_ uiView: UISlider, context: Context) {
-        uiView.thumbTintColor?.withAlphaComponent(CGFloat(alpha) / 100)
+        uiView.value = Float(value)
+        uiView.thumbTintColor = .red
+            .withAlphaComponent(CGFloat(alpha) / 100)
     }
     
     func makeCoordinator() -> Coordinator {
@@ -46,7 +52,7 @@ extension CustomSliderView {
             self._value = value
         }
         
-        @objc func didTapChange(_ sender: UISlider) {
+        @objc func valueChanged(_ sender: UISlider) {
             value = Double(sender.value)
         }
     }
