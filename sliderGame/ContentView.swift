@@ -22,10 +22,16 @@ struct ContentView: View {
                 Text("100")
             }
             Button("Проверь меня!") {
-                
+                showAlert.toggle()
+            }
+            .alert("Your Score",
+                   isPresented: $showAlert,
+                   actions: {}) {
+                Text(computeScore().formatted())
             }
             Button("Начать заново") {
-                
+                targetValue = Int.random(in: 0...100)
+                currentValue = Double.random(in: 0...100)
             }
         }
         .padding()
